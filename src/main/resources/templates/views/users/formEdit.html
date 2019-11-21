@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	
+	<head th:replace="layout/layout :: head"></head>
+	
+	<body>
+		<header th:replace="layout/layout :: header"></header>
+		
+		<div class="panel panel-default">
+			<br><br>
+			<div class="panel-body">
+				<div class="row justify-content-md-center">
+					<div class="col-lg-8">
+						<form class="form-horizontal" th:action="@{/usuario/update/} + *{Id_Usuario}" th:object="${usuario}"
+							method="post">
+							
+							<fieldset>
+							
+							<legend align="center">Registro de Funcionario</legend>
+							
+							<br>
+							
+							<div class="row">
+								<div class="col col-md-2">
+									<label class="col-md-4 control-label" for="name">Nombres</label>
+								</div>  
+								<div class="col-md-4">
+									<input th:field="*{Nombres}" type="text" class="form-control input-md" required autofocus>
+								</div>
+								
+								<div class="col col-md-2">
+									<label class="col-md-4 control-label" for="apellidos">Apellidos</label>  
+								</div>
+								<div class="col-md-4">
+									<input th:field="*{Apellidos}" type="text" class="form-control input-md" required>
+								</div>
+							</div>
+							
+							<br>
+							
+							<div class="row">
+								<div class="col col-md-2">
+									<label class="col-md-4 control-label" for="dir">Dirección</label>
+								</div>
+								<div class="col-md-4">
+									<input th:field="*{Direccion}" type="text" class="form-control input-md" required>
+								</div>
+								
+								<div class="col col-md-2">
+									<label class="col-md-4 control-label" for="barrio">Barrio</label>  
+								</div>
+								<div class="col-md-4">
+									<input th:field="*{Barrio}" type="text" class="form-control input-md" required>
+								</div>
+							</div>
+							
+							<br>
+							
+							<div class="row">
+								<div class="col col-md-2">
+									<label class="col-md-4 control-label" for="dpto">Departamento</label>
+								</div>
+								<div class="col-md-4">
+									<select th:field="*{Id_Depto}" class="form-control">
+										<option value="-1">Seleccione Departamento</option>
+										<option th:each="dpto : ${dpto}" th:value="${dpto.Id_Depto}" th:text="${dpto.Nombre}">
+    									</option>
+									</select>
+								</div>
+								
+								<div class="col col-md-2">
+									<label class="col-md-4 control-label" for="city">Ciudad</label>
+								</div>
+								<div class="col-md-4">
+									<select th:field="*{Id_Ciudad}" class="form-control">
+										<option value="-1">Seleccione Ciudad</option>
+										<option th:fragment="listCity" th:each="city : ${city}" th:value="${city.Id_Ciudad}" th:text="${city.Nombre}"/>
+									</select>
+								</div>
+							</div>
+
+							<br>
+							
+							<div class="row">
+								<div class="col col-md-2">
+									<label class="col-md-4 control-label" for="email">Correo</label>
+								</div>
+								<div class="col-md-4">
+									<input th:field="*{Email}" type="email" class="form-control input-md" required>
+								</div>
+								
+								<div class="col col-md-2">
+									<label class="col-md-4 control-label" for="pwd">Contraseña</label>
+								</div>
+								<div class="col-md-4">
+									<input th:field="*{Contrasena}" type="password" class="form-control input-md" required>
+								</div>
+							</div>
+							
+							<br>
+							
+							<div class="row">
+								<div class="col col-md-2">
+									<label class="col-md-4 control-label" for="rol">Rol usuario</label>
+								</div>
+								<div class="col-md-4">
+									<select th:field="*{Id_Rol}" class="form-control">
+										<option value="-1">Seleccione Rol</option>
+										<option th:each="rol : ${roles}" th:value="${rol.Id_Rol}" th:text="${rol.Nombre}">
+    									</option>
+									</select>
+								</div>
+								
+								<div class="col col-md-2">
+									<label class="col-md-4 control-label" for="city">Ciudad</label>
+								</div>
+								<div class="col-md-4">
+									<select th:field="*{Id_Estado}" class="form-control">
+										<option value="-1">Seleccione Estado</option>
+										<option th:each="est : ${states}" th:value="${est.Id_Estado}" th:text="${est.Nombre}">
+    									</option>
+									</select>
+								</div>
+							</div>
+
+							<div class="form-group" align="right">
+								<label class="col-md-4 control-label" for="save"></label>
+								<div class="col-md-4">
+									<button name="save" class="btn btn-lg btn-primary btn-block" type="submit">Guardar</button>
+								</div>
+							</div>
+							
+							</fieldset>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<footer th:replace="layout/layout :: footer"></footer>
+	</body>
+</html>
