@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<head th:replace="layout/layout :: head"></head>
+
+<body>
+	<header th:replace="layout/layout :: header"></header>
+
+	<div class="panel panel-default">
+		<br> <br>
+		<div class="panel-body">
+			<div class="row justify-content-md-center">
+				<div class="col-lg-8">
+					<form class="form-horizontal"
+						th:action="@{/pedidos/update/} + *{Id_Pedido}"
+						th:object="${pedidos}" method="post">
+
+						<fieldset>
+
+							<legend th:text="'Editar  el Pedido #-' +${pedidos.Id_Pedido}"
+								align="center"></legend>
+
+							<br>
+
+							<div class="row">
+								<div class="col col-md-2">
+									<label class="col-md-4 control-label" for="name">Coordenadas</label>
+								</div>
+								<div class="col-md-4">
+									<input th:field="*{Coordenadas}" type="text"
+										class="form-control input-md" required autofocus>
+								</div>
+
+								<div class="col col-md-2">
+									<label class="col-md-4 control-label" for="name">Cantidad
+										Calzado</label>
+								</div>
+								<div class="col-md-4">
+									<input th:field="*{Cantidad_Calzado}" type="text"
+										class="form-control input-md" required autofocus>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col col-md-2">
+									<label class="col-md-4 control-label" for="name">Direccion
+										Entrega</label>
+								</div>
+								<div class="col-md-4">
+									<input th:field="*{Direccion_Entrega}" type="text"
+										class="form-control input-md" required autofocus>
+								</div>
+
+								<div class="col col-md-2">
+									<label class="col-md-4 control-label" for="name">Direccion
+										Recepcion</label>
+								</div>
+								<div class="col-md-4">
+									<input th:field="*{Direccion_Recepcion}" type="text"
+										class="form-control input-md" required autofocus>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col col-md-2">
+									<label class="col-md-4 control-label" for="name">Identificacion
+										Cliente</label>
+								</div>
+								<div class="col-md-4">
+									<select th:field="*{Id_Cliente}" class="form-control">
+										<option value="-1">Seleccione un Cliente</option>
+										<option th:each="usuarios: ${usuarios}"
+											th:value="${usuarios.Id_Usuario}"
+											th:text="${usuarios.Nombres}"></option>
+									</select>
+								</div>
+
+								<div class="col col-md-2">
+									<label class="col-md-4 control-label" for="name">Identificacion
+										Mensajero</label>
+								</div>
+								<div class="col-md-4">
+									<select th:field="*{Id_Mensajero}" class="form-control">
+										<option value="-1">Seleccione un Mensajero</option>
+										<option th:each="usuarios: ${usuarios}"
+											th:value="${usuarios.Id_Usuario}"
+											th:text="${usuarios.Nombres}"></option>
+									</select>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col col-md-2">
+									<label class="col-md-4 control-label" for="name">identificacion
+										tipo calzado</label>
+								</div>
+								<div class="col-md-4">
+									<select th:field="*{Id_Tipo_Calzado}" class="form-control">
+										<option value="-1">Seleccione un Tipo Calzado</option>
+										<option th:each="tipCalzado: ${tipCalzado}"
+											th:value="${tipCalzado.Id_Tipo_Calzado}"
+											th:text="${tipCalzado.Nombre}"></option>
+									</select>
+								</div>
+								<div class="col col-md-2">
+									<label class="col-md-4 control-label" for="name">Identificacion
+										Color</label>
+								</div>
+								<div class="col-md-4">
+									<select th:field="*{Id_Color}" class="form-control">
+										<option value="-1">Seleccione un Color</option>
+										<option th:each="Color: ${Color}" th:value="${Color.Id_Color}"
+											th:text="${Color.Nombre}"></option>
+									</select>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col col-md-2">
+									<label class="col-md-4 control-label" for="name">identificacion
+										talla</label>
+								</div>
+								<div class="col-md-4">
+									<select th:field="*{ID_Talla}" class="form-control">
+										<option value="-1">Seleccione una Talla</option>
+										<option th:each="Talla: ${Talla}" th:value="${Talla.Id_Talla}"
+											th:text="${Talla.Nombre}"></option>
+									</select>
+								</div>
+
+								<div class="col col-md-2">
+									<label class="col-md-4 control-label" for="name">Identificacion
+										Material</label>
+								</div>
+								<div class="col-md-4">
+									<select th:field="*{Id_Material}" class="form-control">
+										<option value="-1">Seleccione un Material</option>
+										<option th:each="material: ${material}"
+											th:value="${material.Id_Material}"
+											th:text="${material.Nombre}"></option>
+									</select>
+								</div>
+
+							</div>
+							<div class="row">
+								<div class="col col-md-2">
+									<label class="col-md-4 control-label" for="name">Identificacion
+										Tipo Lavado</label>
+								</div>
+								<div class="col-md-4">
+									<select th:field="*{Id_Tipo_Lavado}" class="form-control">
+										<option value="-1">Seleccione un Tipo Lavado</option>
+										<option th:each="tipLavado: ${tipLavado}"
+											th:value="${tipLavado.Id_Tipo_Lavado}"
+											th:text="${tipLavado.Nombre}"></option>
+									</select>
+								</div>
+							</div>
+							<br>
+							<div class="form-group row">
+								<div class="col-md-2"></div>
+								<div class="col-md-4">
+									<a th:href="@{/pedidos/All/}">
+										<button name="atras" class="btn btn-lg btn-primary btn-block"
+											type="button">Atras</button>
+									</a>
+								</div>
+								<div class="col-md-4">
+									<button name="save" class="btn btn-lg btn-primary btn-block"
+										type="submit">Guardar</button>
+								</div>
+								<div class="col-md-2"></div>
+							</div>
+
+						</fieldset>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>

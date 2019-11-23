@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.washer.shoewasher.app.models.Pedido;
 import com.washer.shoewasher.app.repositories.PedidoRepository;
@@ -14,23 +15,32 @@ public class PedidoService {
 	@Autowired
 	private PedidoRepository Rep;
 
-	public Pedido save(Pedido var) {
-		return Rep.save(var);
+	@Transactional
+	public void save(Pedido us) {
+		Rep.save(us);
 	}
-
-	public Pedido update(Pedido var) {
-		return Rep.save(var);
+	
+	@Transactional
+	public void update(Pedido us) {
+		Rep.save(us);
 	}
-
-	public void delete(long var) {
-		Rep.deleteById(var);
+	
+	public void delete(long id) {
+		Rep.deleteById(id);
 	}
-
-	public List<Pedido> listar() {
+	
+	@Transactional(readOnly = true)
+	public List<Pedido> listar(){
 		return Rep.findAll();
 	}
-
-	public Optional<Pedido> listarId(long var) {
-		return Rep.findById(var);
+	
+	public Optional<Pedido> listarId(long id) {
+        return Rep.findById(id);
+    }
+	
+	@Transactional(readOnly = true)
+	public Pedido listarId(Long id) {
+		return Rep.findById(id).orElse(null);
 	}
+	
 }

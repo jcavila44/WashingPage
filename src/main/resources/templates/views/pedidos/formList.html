@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<head th:replace="layout/layout :: head"></head>
+
+<body>
+	<header th:replace="layout/layout :: header"></header>
+
+	<div class="container">
+		<br>
+
+		<legend align="center">Historial de pedidos</legend>
+
+		<form th:action="@{/pedidos/crear}">
+			<div class="col-md-2 offset-md-2">
+				<button name="add" class="btn btn-md btn-primary btn-block"
+					type="submit">Generar un nuevo pedido</button>
+			</div>
+		</form>
+
+		<div class="panel-body">
+			<div class="row justify-content-md-center">
+				<div class="ccol-md-auto">
+					<br>
+
+					<table id="example" class="table table-striped table-bordered"
+						style="width: 100%">
+						<thead>
+							<tr>
+								<th>Identificacion Pedidos</th>
+								<th>Coordenadas</th>
+								<th>Cantidad Calzado</th>
+								<th>Direccion entrega</th>
+								<th>Direccion Recepcion</th>
+								<th>Cliente</th>
+								<th>Tipo calzado</th>
+								<th>Color</th>
+								<th>Talla</th>
+								<th>Material</th>
+								<th>Tipo Lavado</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="pedidos: ${pedidos}">
+								<!-- 
+									 -->
+								<td th:text="${pedidos.Id_Pedido}"></td>
+								<td th:text="${pedidos.Coordenadas}"></td>
+								<td th:text="${pedidos.Cantidad_Calzado}"></td>
+								<td th:text="${pedidos.Direccion_Entrega}"></td>
+								<td th:text="${pedidos.Direccion_Recepcion}"></td>
+								<td th:each="usuarios: ${usuarios}" th:field="*{Nombre}"
+									th:if="${pedidos.Id_Cliente} == ${usuarios.Id_Usuario}"
+									th:text="${usuarios.Nombres}"></td>
+
+								<td th:each="tipCalzado: ${tipCalzado}" th:field="*{Nombre}"
+									th:if="${pedidos.Id_Tipo_Calzado} == ${tipCalzado.Id_Tipo_Calzado}"
+									th:text="${tipCalzado.Nombre}"></td>
+
+								<td th:each="Color: ${Color}" th:field="*{Nombre}"
+									th:if="${pedidos.Id_Color} == ${Color.Id_Color}"
+									th:text="${Color.Nombre}"></td>
+
+								<td th:each="Talla: ${Talla}" th:field="*{Nombre}"
+									th:if="${pedidos.ID_Talla} == ${Talla.Id_Talla}"
+									th:text="${Talla.Nombre}"></td>
+
+								<td th:each="material: ${material}" th:field="*{Nombre}"
+									th:if="${pedidos.Id_Material} == ${material.Id_Material}"
+									th:text="${material.Nombre}"></td>
+
+								<td th:each="tipLavado: ${tipLavado}" th:field="*{Nombre}"
+									th:if="${pedidos.Id_Tipo_Lavado} == ${tipLavado.Id_Tipo_Lavado}"
+									th:text="${tipLavado.Nombre}"></td>
+
+								<td><a class="btn btn-primary btn-xs"
+									th:href="@{/pedidos/edit/} + ${pedidos.Id_Pedido}"
+									th:text="'Editar'"></a></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>
