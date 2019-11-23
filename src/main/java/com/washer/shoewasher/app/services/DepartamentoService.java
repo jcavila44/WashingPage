@@ -5,7 +5,9 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.washer.shoewasher.app.models.Color;
 import com.washer.shoewasher.app.models.Departamento;
 import com.washer.shoewasher.app.repositories.DepartamentoRepository;
 
@@ -32,5 +34,9 @@ public class DepartamentoService {
 
 	public Optional<Departamento> listarId(long var) {
 		return Rep.findById(var);
+	}
+	@Transactional(readOnly = true)
+	public Departamento listarId(Long id) {
+		return Rep.findById(id).orElse(null);
 	}
 }

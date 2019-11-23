@@ -5,8 +5,10 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.washer.shoewasher.app.models.Ciudad;
+import com.washer.shoewasher.app.models.Departamento;
 import com.washer.shoewasher.app.repositories.CiudadRepository;
 
 @Service
@@ -37,4 +39,9 @@ public class CiudadService {
 	public List<Ciudad> ListCity(Long dpto) {
 		return Rep.findByDpto(dpto);
     }
+	
+	@Transactional(readOnly = true)
+	public Ciudad listarId(Long id) {
+		return Rep.findById(id).orElse(null);
+	}
 }

@@ -46,11 +46,11 @@ public class Ciudad implements Serializable {
 		Id_Depto = id_Depto;
 	}
 
-	public long getId_Ciudad() {
+	public Long getId_Ciudad() {
 		return Id_Ciudad;
 	}
 
-	public void setId_Ciudad(long id_Ciudad) {
+	public void setId_Ciudad(Long id_Ciudad) {
 		Id_Ciudad = id_Ciudad;
 	}
 

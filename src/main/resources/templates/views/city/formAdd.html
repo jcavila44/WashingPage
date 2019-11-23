@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	
+	<head th:replace="layout/layout :: head"></head>
+	
+	<body>
+		<header th:replace="layout/layout :: header"></header>
+		<br/><br/>
+			<div class="panel-body" style="height: 80%">
+				<div class="row justify-content-md-center">
+					<form class="col-md-5 form-horizontal" th:action="@{/ciudad/insertar}" th:object="${city}" method="post">
+						<div class="col-md-12">
+
+							<div class="row form-group">
+								<label class="col-md-3 control-label" for="ciudad">Ciudad</label>  							
+								<input  th:field="*{Nombre}" type="text" class="col-md-8 form-control input-md" required autofocus>			
+							</div>	
+							<div class="row form-group">
+								<label class="col-md-3 control-label" for="ciudad">Departamento</label>  							
+								<select th:field="*{Id_Depto}" class="col-md-8 form-control input-md">
+										<option value="-1">Seleccione Departamento</option>
+										<option th:each="dpto : ${dpto}" th:value="${dpto.Id_Depto}" th:text="${dpto.Nombre}">
+    									</option>
+								</select>
+							</div>	
+
+							<div class="form-group row">
+								<div class="col-md-2"></div>
+								<div class="col-md-4">
+									<a th:href="@{/ciudad/All/}">
+										<button name="atras" class="btn btn-lg btn-primary btn-block"
+											type="button">Atras</button>
+									</a>
+								</div>
+								<div class="col-md-4">
+									<button name="save" class="btn btn-lg btn-primary btn-block"
+										type="submit">Guardar</button>
+								</div>
+								<div class="col-md-2"></div>
+							</div>
+							<br>
+			
+						</div>
+					</form>
+			</div>
+		</div>
+	</div>
+
+		<footer th:replace="layout/layout :: footer"></footer>
+	</body>
+</html>

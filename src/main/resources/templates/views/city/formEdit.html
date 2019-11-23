@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<head th:replace="layout/layout :: head"></head>
+
+<body>
+	<header th:replace="layout/layout :: header"></header>
+
+	<div class="panel panel-default">
+		<br> <br>
+		<div class="panel-body">
+			<div class="row justify-content-md-center">
+				<div class="col-lg-8">
+					<form class="form-horizontal"
+						th:action="@{/ciudad/update/} + *{Id_Ciudad}" th:object="${city}"
+						method="post">
+
+						<fieldset>
+
+							<legend align="center">Registro de Ciudad</legend>
+
+							<br>
+							<div class="row">
+								<div class="col col-md-3"></div>
+								<div class="col col-md-2">
+									<label class="col-md-4 control-label" for="name">Nombres</label>
+								</div>
+								<div class="col-md-5">
+									<input th:field="*{Nombre}" type="text"
+										class="form-control input-md" required autofocus>
+								</div>					
+								<br>
+								<div class="col col-md-3"></div>
+								<div class="col col-md-2">
+									<label class="col-md-6 control-label" for="name">Nombres</label>
+								</div>
+								<div class="col-md-5">
+									<select th:field="*{Id_Depto}" class="col-md-12 form-control input-md">
+										<option value="-1">Seleccione Departamento</option>
+										<option th:each="dpto : ${dpto}" th:value="${dpto.Id_Depto}" th:text="${dpto.Nombre}">
+    									</option>
+								</select>
+								</div>	
+								
+							</div>
+							<br>
+							<div class="form-group row">
+								<div class="col-md-2"></div>
+								<div class="col-md-4">
+									<a th:href="@{/ciudad/All/}">
+										<button name="atras" class="btn btn-lg btn-primary btn-block"
+											type="button">Atras</button>
+									</a>
+								</div>
+								<div class="col-md-4">
+									<button name="save" class="btn btn-lg btn-primary btn-block"
+										type="submit">Guardar</button>
+								</div>
+								<div class="col-md-2"></div>
+							</div>
+
+						</fieldset>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>

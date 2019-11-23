@@ -42,11 +42,11 @@ public class Departamento implements Serializable{
 		Nombre = nombre;
 	}
 
-	public long getId_Depto() {
+	public Long getId_Depto() {
 		return Id_Depto;
 	}
 
-	public void setId_Depto(long id_Depto) {
+	public void setId_Depto(Long id_Depto) {
 		Id_Depto = id_Depto;
 	}
 
