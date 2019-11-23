@@ -1,9 +1,15 @@
 package com.washer.shoewasher.app.controllers;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,27 +18,51 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.washer.shoewasher.app.models.Ciudad;
+import com.washer.shoewasher.app.models.ClaseEstado;
+import com.washer.shoewasher.app.models.Departamento;
 import com.washer.shoewasher.app.models.Estado;
+import com.washer.shoewasher.app.services.ClaseEstadoService;
+import com.washer.shoewasher.app.services.DepartamentoService;
 import com.washer.shoewasher.app.services.EstadoService;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
-@RestController
+@Controller
 @RequestMapping("/estado")
 public class EstadoController {
+	@Value("${tittle}")
+	private String tittle;
+
+	@Value("${design}")
+	private String design;
+
+	@Value("${version}")
+	private String version;
+
+	@Value("${actualizado}")
+	private String update;
+	
+	@Autowired
+	private ClaseEstadoService clase_estado;
+	
 	@Autowired
 	private EstadoService Serv;
 
-	@PostMapping(path = "/insertar")
-	public Estado insertar(@RequestBody Estado var) {
-		return Serv.save(var);
+	@RequestMapping(path = "/insertar", method = RequestMethod.POST)
+	public String insertar(@Valid Estado var, Model model) {
+		Serv.save(var);
+		return "redirect:All";
 	}
 
-	@PutMapping(path = "/update/{id}")
-	public Estado update(@RequestBody Estado var, @PathVariable("id") long id) {
+	@RequestMapping(path = "/update/{id}", method = RequestMethod.POST)
+	public String update(@Valid Estado var, @PathVariable("id") long id, Model model) {
 		var.setId_Estado(id);
-		return Serv.update(var);
+		Serv.update(var);
+		return "redirect:../All";
 	}
 
 	@DeleteMapping(path = "/delete/{id}")
@@ -53,5 +83,55 @@ public class EstadoController {
 	@GetMapping(path = "/list/{id}")
 	public List<Estado> listarEst(@PathVariable("id") Long id) {
 		return Serv.ListEst(id);
+	}
+	@GetMapping(path = "/All")
+	public String listarAll(Model model) {
+		model.addAttribute("tittle", tittle);
+		model.addAttribute("design", design);
+		model.addAttribute("version", version);
+		model.addAttribute("update", update);
+		model.addAttribute("state", Serv.listar());
+		model.addAttribute("class_state", clase_estado.listar());
+		return "/views/state/formList";
+	}
+	
+	@GetMapping(path="/crear")
+	public String crearFunc(Map<String, Object> model) {
+		Estado state = new Estado();
+		List<ClaseEstado> claste= clase_estado.listar();
+		
+		model.put("tittle", tittle);
+		model.put("design", design);
+		model.put("version", version);
+		model.put("update", update);
+		model.put("state", state);
+		model.put("claste", claste);
+		
+		return "/views/state/formAdd"; 
+	}
+	@GetMapping(path = { "/edit/{id}" })
+	public String listar(@PathVariable("id") Long id, Map<String, Object> model, RedirectAttributes flash) {
+		Estado estado = null;
+		List<ClaseEstado> claste = clase_estado.listar();
+
+		if (id > 0) {
+			estado = Serv.listarId(id);
+			if (estado == null) {
+				flash.addFlashAttribute("error", "El ID de la Ciudad no existe!");
+				return "redirect:/views/state/formList";
+			}
+		} else {
+			flash.addFlashAttribute("error", "El ID de la Ciudad no puede ser cero!");
+			return "redirect:/views/state/formList";
+		}
+
+		model.put("tittle", tittle);
+		model.put("design", design);
+		model.put("version", version);
+		model.put("update", update);
+		model.put("claste", claste);
+		model.put("state", estado);
+
+		return "/views/state/formEdit";
 	}
 }

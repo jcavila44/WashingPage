@@ -5,7 +5,9 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.washer.shoewasher.app.models.Departamento;
 import com.washer.shoewasher.app.models.Estado;
 import com.washer.shoewasher.app.repositories.EstadoRepository;
 
@@ -34,4 +36,8 @@ public class EstadoService {
 	public List<Estado> ListEst(Long id) {
 		return Rep.findByTypeEst(id);
     }
+	@Transactional(readOnly = true)
+	public Estado listarId(Long id) {
+		return Rep.findById(id).orElse(null);
+	}
 }

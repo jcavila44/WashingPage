@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	
+	<head th:replace="layout/layout :: head"></head>
+	
+	<body>
+		<header th:replace="layout/layout :: header"></header>
+		<br/><br/>
+			<form th:action="@{/estado/crear}">
+				<div class="col-md-2 offset-md-2">
+					<button name="add" class="btn btn-md btn-primary btn-block" type="submit">Crear Estado</button>
+				</div>
+			</form>
+			<div class="panel-body" style="height: 80%">
+				<div class="row justify-content-md-center">
+					<div class="row justify-content-md-center">
+						<div class="ccol-md-auto">
+							<table class="table">
+								<thead>
+									<tr>
+										<th>CODIGO</th>
+										<th>ESTADO</th>
+										<th>CLASE ESTADO</th>
+									</tr>
+								</thead>
+								<tbody>
+								<tr th:each="state: ${state}">
+								<td th:text="${state.Id_Estado}"></td>
+								<td th:text="${state.Nombre}"></td>
+								<span th:each="claste: ${class_state}">
+									<span th:if="${state.Id_Clase_Estado==claste.Id_ClaseEstado}")>
+										<td th:text="${claste.Nombre}"></td>
+									</span>
+								</span>
+								<td>
+									<a class="btn btn-primary btn-xs" th:href="@{/estado/edit/} + ${state.Id_Estado}" th:text="'Editar'"></a>
+								</td>
+								</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+			</div>
+		</div>
+	</div>
+
+		<footer th:replace="layout/layout :: footer"></footer>
+	</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	
+	<head th:replace="layout/layout :: head"></head>
+	
+	<body>
+		<header th:replace="layout/layout :: header"></header>
+		<br/><br/>
+			<form th:action="@{/departamento/crear}">
+				<div class="col-md-2 offset-md-2">
+					<button name="add" class="btn btn-md btn-primary btn-block" type="submit">Crear Departamento</button>
+				</div>
+			</form>
+			<div class="panel-body" style="height: 80%">
+				<div class="row justify-content-md-center">
+					<div class="row justify-content-md-center">
+						<div class="ccol-md-auto">
+							<table class="table">
+								<thead>
+									<tr>
+										<th>CODIGO POSTAL</th>
+										<th>DEPARTAMENTO</th>
+									</tr>
+								</thead>
+								<tbody>
+								<tr th:each="dept: ${departaments}">
+								<td th:text="${dept.Id_Depto}"></td>
+								<td th:text="${dept.Nombre}"></td>
+								<td>
+									<a class="btn btn-primary btn-xs" th:href="@{/departamento/edit/} + ${dept.Id_Depto}" th:text="'Editar'"></a>
+								</td>
+								</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+			</div>
+		</div>
+	</div>
+
+		<footer th:replace="layout/layout :: footer"></footer>
+	</body>
+</html>
